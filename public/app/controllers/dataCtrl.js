@@ -100,7 +100,7 @@ angular.module('dataCtrl', ['dataService'])
 	};
 })
 
-.controller('cartController', function(Order, Cart, AuthHandler, $location){
+.controller('cartController', function(Order, Cart, AuthHandler, $modalInstance,  $location){
 
 	var vm = this;
 
@@ -154,6 +154,15 @@ angular.module('dataCtrl', ['dataService'])
 				
 			});
 	};
+
+	vm.submitOrder = function() {
+		$modalInstance.close();
+	};
+
+	vm.closeCart = function() {	
+		$modalInstance.dismiss('cancel');
+	};
+
 
 })
 

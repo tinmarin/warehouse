@@ -35,6 +35,7 @@ module.exports.sendEmail = function(body, filename){
 	transporter.sendMail(mailOptions, function(error, info){
 
 			if(error) console.log(error);
+
 			else if(filename) {
 				fs.unlink(filename);
 			}

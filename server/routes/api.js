@@ -1,6 +1,7 @@
 var bodyParser 	= require('body-parser');
 var Product     = require('../models/product');
 var Order 		= require('../models/order');
+var ManagerOrder= require('../models/managerOrder');
 var Request     = require('../models/request');
 var utils       = require('../utils');
 
@@ -106,27 +107,34 @@ module.exports = function(app, express) {
 
 		.post(function(req, res) {
 
-			var order = new Order({
-
+			var managerOrder = ManagerOrder({
 				user : req.body.user,
 				date : Date.now(),
 				products : req.body.products
-
 			});
 
-			order.save(function(err) {
+			managerOrder.save(function(err) {
 				if (err) {
 					return res.send(err);
 				}
+
+				utils.sendEmail({
+					from : "Second Plaza",
+					to 	 : req.body.user.email,
+					subject: "Order confirmation",
+					text : "Your order was received. You will be notified as soon as your product arrives to our warehouse."
+				});
 				//email order
+				/*
 				utils.emailOrder(order, {
 					from : "Second Plaza",
 					to 	 : "tinmarin60@gmail.com",
 					subject: "Second Plaza Order",
 					text : "Find order attached! Thank you!"
 				});
+				*/
 				
-				res.json({ message: 'Order created!' });
+				res.json({ message: 'Order submitted!' });
 
 			});
 

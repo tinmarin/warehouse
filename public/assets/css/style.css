@@ -3,6 +3,17 @@ main {
 	margin-bottom: 20px;
 }
 
+.fixed{
+
+	position: fixed;
+}
+
+.no-opacity.in {
+
+	opacity: 0;
+
+}
+
 .navbar {
 	border-radius: 0px;
 }

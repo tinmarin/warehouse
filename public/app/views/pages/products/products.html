@@ -57,25 +57,27 @@
 </form>
 </div>
 
-<table class="table table-bordered table-striped" ng-show="product.products">
+<table class="table table-striped table-hover" ng-show="product.products">
 	<thead>
 		<tr>
+			<th>#</th>
 			<th>Name</th>
 			<th>Keywords</th>
 			<th>SKU</th>
 			<th>Provider</th>
 			<th>Units per pack</th>
-			<th class="col-sm-2">Action</th>
+			<th>Action</th>
 		</tr>
 	</thead>
 	<tbody>
 		<tr ng-repeat="item in product.products">
+			<td>{{ $index+1 }}</td>
 			<td>{{ item.name }}</td>
 			<td>{{ item.keywords }}</td>
 			<td>{{ item.sku }}</td>
 			<td>{{ item.provider }}</td>
 			<td>{{ item.unitsPack }}</td>
-			<td class="col-sm-2">
+			<td>
 				<a href="#" ng-click="product.deleteProduct(item._id)" class="btn btn-xs btn-danger">Delete</a>
 			</td>
 		</tr>

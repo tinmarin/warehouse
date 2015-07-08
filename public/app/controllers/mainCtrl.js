@@ -74,7 +74,7 @@ angular.module('mainCtrl', ['dataService'])
 	
 })
 
-.controller('homeController', function(Request, Product, Cart, $modal){
+.controller('homeController', function(Request, Product, Cart, Order,$location, $modal, AuthHandler){
 
 	var vm = this;
 
@@ -90,70 +90,85 @@ angular.module('mainCtrl', ['dataService'])
 		return Cart.getSize();
 	};
 
-	vm.setData = function(product){
-		vm.product = product;
-	};
-
 	vm.addToCart = function (product) {
 
 	    var modalInstance = $modal.open({
 	      templateUrl: 'app/views/pages/manager/add-to-cart-modal.html',
 	      controller: 'addToCartController',
+	      backdropClass: 'no-opacity',
 	      resolve: {
-	        product: function () {
+	        CurrentProduct: function () {
 	          return product;
 	        }
 	      }
 	    });
+
+	    modalInstance.result.then(function (quantity) {
+	      
+	      	product.quantity = parseInt(quantity);
+		
+			Cart.addToCart(product);
+
+
+	    }, function () {
+	      console.log('Modal dismissed at: ' + new Date());
+	    });
+	};
+
+	vm.showCart = function (){
+
+		var modalInstance = $modal.open({
+
+			templateUrl : 'app/views/pages/manager/cart.html',
+			controller  : 'cartController',
+			controllerAs: 'cart',
+			backdropClass: 'fixed'
+		});
+
+		modalInstance.result.then(function () {
+	      
+	      	var order = {};
+
+			AuthHandler.getUser()
+			.then(function(data){
+				console.log(data);
+				order.user = { name    : data.data.name,
+							   username: data.data.username,
+							   email   : data.data.email };
+				order.products = vm.products;
+				
+				Order.create(order)
+					.then(function(){
+
+						$location.path('/orders/done');
+						Cart.setCart();
+
+					});
+				
+			});
+
+	    });
+
+
+
 	};
 })
 
-.controller('addToCartController', function($scope, $modal){
+.controller('addToCartController', function($scope, $modalInstance, CurrentProduct){
 
-	$scope.items = ['item1', 'item2', 'item3'];
+	$scope.item = CurrentProduct;
 
-  $scope.animationsEnabled = true;
+	$scope.quantity = 1;
 
-  $scope.open = function (size) {
+ 	$scope.animationsEnabled = true;
 
-    var modalInstance = $modal.open({
-      animation: $scope.animationsEnabled,
-      templateUrl: 'myModalContent.html',
-      controller: 'ModalInstanceCtrl',
-      size: size,
-      resolve: {
-        items: function () {
-          return $scope.items;
-        }
-      }
-    });
+  	$scope.ok = function () {
+    	$modalInstance.close($scope.quantity);
+  	};
 
-    modalInstance.result.then(function (selectedItem) {
-      $scope.selected = selectedItem;
-    }, function () {
-      console.log('Modal dismissed at: ' + new Date());
-    });
-  };
+  	$scope.cancel = function () {
+    	$modalInstance.dismiss('cancel');
+  	};
 
-  $scope.toggleAnimation = function () {
-    $scope.animationsEnabled = !$scope.animationsEnabled;
-  };
-
-})
-
-.controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
-
-  $scope.items = items;
-  $scope.selected = {
-    item: $scope.items[0]
-  };
-
-  $scope.ok = function () {
-    $modalInstance.close($scope.selected.item);
-  };
-
-  $scope.cancel = function () {
-    $modalInstance.dismiss('cancel');
-  };
 });
 

@@ -16,7 +16,7 @@ module.exports = function(app, express) {
 	  // find the user
 	  User.findOne({
 	    username: req.body.username
-	  }).select('name username password').exec(function(err, user) {
+	  }).select('name email username password').exec(function(err, user) {
 
 	    if (err) throw err;
 
@@ -42,9 +42,10 @@ module.exports = function(app, express) {
 	        // create a token
 	        var token = jwt.sign({
 	        	name: user.name,
-	        	username: user.username
+	        	username: user.username,
+	        	email: user.email
 	        }, superSecret, {
-	          expiresInMinutes: 300 // expires in 24 hours
+	          expiresInMinutes: 800 // expires in 24 hours
 	        });
 
 	        // return the information including token as JSON
@@ -115,6 +116,7 @@ module.exports = function(app, express) {
 			
 			var user = new User();		// create a new instance of the User model
 			user.name = req.body.name;  // set the users name (comes from the request)
+			user.email = req.body.email;
 			user.username = req.body.username;  // set the users username (comes from the request)
 			user.password = req.body.password;  // set the users password (comes from the request)
 

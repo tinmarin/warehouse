@@ -1,15 +1,23 @@
 <div class="modal-header">
-            <h3 class="modal-title">I'm a modal!</h3>
+	<div class="pull-right">
+		<button class="btn btn-default btn-xs" ng-click="cancel()"> X </button>
+	</div>
+    <h3 class="modal-title">{{item.name}}</h3>
 </div>
-        <div class="modal-body">
-            <ul>
-                <li ng-repeat="item in items">
-                    <a ng-click="selected.item = item">{{ item }}</a>
-                </li>
-            </ul>
-            Selected: <b>{{ selected.item }}</b>
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary" ng-click="ok()">OK</button>
-            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-        </div>
+<div class="modal-body">
+           <div class="product-container" style="border-bottom: 0; margin-bottom: 0;">
+					<img src="assets/imgs/products/{{item.sku}}.jpg" class="img-rounded product-img">
+					<div class="product-description">
+						<p>{{item.description}}</p>
+					</div>
+				</div>
+</div>
+<div class="modal-footer">
+        	
+        	<form class="form-inline" name="addToCartForm">
+        	<label>Qty: 
+        		<input type="number" maxlength="2" min="1" max="10" class="form-control" ng-model="quantity" required>
+        	</label>
+            <button class="btn btn-primary" ng-click="ok()" ng-disabled="addToCartForm.$invalid">+ Add to cart</button>
+            </form>
+</div>

@@ -1,0 +1,35 @@
+<div class="modal-header">
+<div class="pull-right">
+	<button class="btn btn-default btn-xs" ng-click="cart.closeCart()"> X </button>
+</div>
+	<h3>Review your cart </h3>
+	<div>
+		<strong> Total: </strong><em>{{cart.itemsInCart()}} items</em>
+	</div>
+</div>
+
+<div class="modal-body">
+<div ng-show="cart.itemsInCart() == 0">
+	<p>Your shopping cart is empty</p>
+</div>
+<div ng-repeat="item in cart.products track by $index" class="product-container">
+		<img src="assets/imgs/products/{{item.sku}}.jpg" class="img-rounded product-img">
+		<div class="col-sm-8">
+			<strong>{{item.name}}</strong><br>
+			<em>{{item.provider}}</em>
+		</div>
+		<div class="col-sm-4">
+			<div class="pull-right">
+			<div class="quantity-handler">
+				<button class="glyphicon glyphicon-minus" ng-click="cart.decreaseQuantity($index)"></button><em>{{item.quantity}}</em><button class="glyphicon glyphicon-plus" ng-click="cart.increaseQuantity($index)"></button>
+			</div>
+			<button class="btn btn-danger btn-xs" ng-click="cart.removeItem($index)">remove</button>
+			</div>
+		</div>
+	
+
+</div>
+</div>
+<div ng-show="cart.itemsInCart() > 0" class="modal-footer">
+	<button type="button" ng-click="cart.submitOrder()" class="btn btn-primary">Proceed</button>
+</div>
