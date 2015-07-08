@@ -131,7 +131,8 @@ angular.module('dataCtrl', ['dataService'])
 	};
 
 	vm.increaseQuantity = function(index){
-		vm.products = Cart.increaseQuantity(index);
+		if(vm.products[index].quantity < 10)
+			vm.products = Cart.increaseQuantity(index);
 	};
 
 	vm.createOrder = function(){

@@ -122,7 +122,8 @@ angular.module('mainCtrl', ['dataService'])
 			templateUrl : 'app/views/pages/manager/cart.html',
 			controller  : 'cartController',
 			controllerAs: 'cart',
-			backdropClass: 'fixed'
+			backdropClass: 'fixed',
+			size:'lg'
 		});
 
 		modalInstance.result.then(function () {

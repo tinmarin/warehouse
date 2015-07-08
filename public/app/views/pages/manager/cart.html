@@ -1,6 +1,6 @@
 <div class="modal-header">
 <div class="pull-right">
-	<button class="btn btn-default btn-xs" ng-click="cart.closeCart()"> X </button>
+	<button class="btn btn-default btn-xs" ng-click="cart.closeCart()"> <span class="glyphicon glyphicon-remove"></span> </button>
 </div>
 	<h3>Review your cart </h3>
 	<div>
@@ -12,22 +12,32 @@
 <div ng-show="cart.itemsInCart() == 0">
 	<p>Your shopping cart is empty</p>
 </div>
-<div ng-repeat="item in cart.products track by $index" class="product-container">
-		<img src="assets/imgs/products/{{item.sku}}.jpg" class="img-rounded product-img">
-		<div class="col-sm-8">
-			<strong>{{item.name}}</strong><br>
-			<em>{{item.provider}}</em>
-		</div>
-		<div class="col-sm-4">
-			<div class="pull-right">
-			<div class="quantity-handler">
-				<button class="glyphicon glyphicon-minus" ng-click="cart.decreaseQuantity($index)"></button><em>{{item.quantity}}</em><button class="glyphicon glyphicon-plus" ng-click="cart.increaseQuantity($index)"></button>
+<div ng-repeat="item in cart.products track by $index">
+	<div class="cart-product-container">
+		<img src="assets/imgs/products/{{item.sku}}.jpg" class="img-rounded cart-product-img">
+		<div>
+			<div class="col-sm-8">
+				<strong>{{item.name}}</strong><br>
+				<a class="btn btn-link btn-xs" ng-click="cart.removeItem($index)">remove</a>
 			</div>
-			<button class="btn btn-danger btn-xs" ng-click="cart.removeItem($index)">remove</button>
+			<div class="col-sm-2 quantity-handler">
+					<div>
+						<p>Qty:</p>
+					</div>
+					<div class="col-sm-4 btn-wrapper">
+						<button class="btn btn-default btn-xs" ng-click="cart.decreaseQuantity($index)"><span class="glyphicon glyphicon-minus"></span></button>
+					</div>
+					<div class="col-sm-4 qty-text">
+						<p style="padding-left: 5px;">{{item.quantity}}</p>
+					</div>
+					<div class="col-sm-4 btn-wrapper">
+						<button class="btn btn-default btn-xs" ng-click="cart.increaseQuantity($index)"><span class="glyphicon glyphicon-plus"></span></button>
+					</div>
+				
 			</div>
 		</div>
-	
-
+	</div>
+	<hr>
 </div>
 </div>
 <div ng-show="cart.itemsInCart() > 0" class="modal-footer">
