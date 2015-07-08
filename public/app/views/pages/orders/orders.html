@@ -1,0 +1,28 @@
+<div class="page-header">
+	<h3>Orders</h3>
+	<a href="/admin/home">Make a new order</a>
+</div>
+<table class="table table-striped table-hover" ng-show="order.orders">
+	<thead>
+		<tr>
+			<th>Order #</th>
+			<th>Date</th>
+			<th>Made By</th>
+			<th>Total Items</th>
+			<th>Delivered Date</th>
+			<th class="col-sm-2">Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="item in order.orders | orderBy:'date':true">
+			<td>{{ item.date }}</td>
+			<td>{{ item.date | date: "MMM d, y" }}</td>
+			<td>{{ item.user }}</td>
+			<td>{{item.products.length}}</td>
+			<td>{{ item.deliveredAt }}</td>
+			<td class="col-sm-2">
+				<a href="#" ng-click="order.setDelivered(item._id)" class="btn btn-xs btn-warning">Delivered</a>
+			</td>
+		</tr>
+	</tbody>
+</table>

@@ -1,0 +1,84 @@
+<div class="page-header">
+	<h3>Products</h3>
+</div>
+<div class="col-sm-6">
+<form name="productForm" class="form-horizontal" ng-submit="product.createProduct()" novalidate>
+	
+	<div class="form-group">
+		<div class="col-sm-12">
+			<input type="text" class="form-control" placeholder="Name" ng-model="product.productData.name"  required>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-12">
+			<input type="text" class="form-control" placeholder="Keywords" ng-model="product.productData.keywords" maxlength="30" required>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-6">
+			<input type="text" class="form-control" placeholder="SKU" ng-model="product.productData.sku" maxlength="20" required>
+		</div>
+		<div class="col-sm-6">
+			<select class="form-control" placeholder="Provider" ng-model="product.productData.provider" ng-options="option.name for option in product.PROVIDERS" required>
+				<option value="">-- Select Provider --</option>
+			</select>
+	    </div>
+	</div>
+	<div class="form-group">
+		<div class="col-sm-4">
+			<input type="number" class="form-control" placeholder="Units per pack" ng-model="product.productData.unitsPack" min="1" max="99" required>
+		</div>
+		<div class="col-sm-4">
+			<input type="number" class="form-control" placeholder="In stock" ng-model="product.productData.stock" min="0" max="99" required>
+		</div>
+	    <div class="col-sm-4">
+          <input name="limitInput" type="number" class="form-control" placeholder="Minimun in stock" min="0" max="99" ng-model="product.productData.limit" required>
+        </div>
+
+	</div>
+	<div class="form-group">
+		<div class="col-sm-12">
+			<textarea class="form-control" placeholder="Description" ng-model="product.productData.description" rows="3" maxlength="250" required></textarea>
+		</div>
+	</div>
+	<div class="form-group">
+	<div class="col-sm-offset-0 col-sm-6">
+	
+		<ul class="nav navbar-nav">
+		<li><button type="submit" class="btn btn-primary" ng-disabled="productForm.$invalid">Create Product</button></li>
+		<li><div class="validation-message" ng-show="product.message" >
+			{{ product.message }}
+		</div></li>
+	</ul>
+		
+	</div>
+	</div>
+
+</form>
+</div>
+
+<table class="table table-bordered table-striped" ng-show="product.products">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Keywords</th>
+			<th>SKU</th>
+			<th>Provider</th>
+			<th>Units per pack</th>
+			<th class="col-sm-2">Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="item in product.products">
+			<td>{{ item.name }}</td>
+			<td>{{ item.keywords }}</td>
+			<td>{{ item.sku }}</td>
+			<td>{{ item.provider }}</td>
+			<td>{{ item.unitsPack }}</td>
+			<td class="col-sm-2">
+				<a href="#" ng-click="product.deleteProduct(item._id)" class="btn btn-xs btn-danger">Delete</a>
+			</td>
+		</tr>
+	</tbody>
+</table>
+

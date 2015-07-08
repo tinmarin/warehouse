@@ -1,0 +1,38 @@
+<div class="page-header">
+
+		<h3>Review your cart </h3>
+	
+		<a href="/admin/home">Go back to store</a>
+	<div class="pull-right">
+		<strong> Total: </strong><em>{{cart.itemsInCart()}} items</em>
+	</div>
+</div>
+
+<div class="empty-container" ng-show="cart.itemsInCart() == 0">
+	<h1>[empty]</h1>
+</div>
+<div class="all-products-container">
+<div ng-repeat="item in cart.products track by $index" class="product-container-wrapper">
+	<div class="product-container">
+	
+		<div class="col-sm-8">
+			<strong>{{item.name}}</strong><br>
+			<em>{{item.provider}}</em>
+		</div>
+		<div class="col-sm-4">
+			<div class="pull-right">
+			<div class="quantity-handler">
+				<button class="glyphicon glyphicon-minus" ng-click="cart.decreaseQuantity($index)"></button><em>{{item.quantity}}</em><button class="glyphicon glyphicon-plus" ng-click="cart.increaseQuantity($index)"></button>
+			</div>
+			<a href="/orders/cart" ng-click="cart.removeItem($index)">remove from cart</a>
+			</div>
+		</div>
+	</div>
+
+</div>
+</div>
+<div ng-show="cart.itemsInCart() > 0" class="pull-right">
+	<br>
+	<button type="button" ng-click="cart.removeAll()" class="btn btn-danger">Clear Cart</button>
+	<button type="button" ng-click="cart.createOrder()" class="btn btn-primary">Proceed</button>
+</div>

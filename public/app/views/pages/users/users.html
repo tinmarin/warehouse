@@ -1,0 +1,61 @@
+<div class="page-header">
+	<h3>Users</h3>
+</div>
+
+<form class="form-horizontal" ng-submit="user.saveUser()">
+	
+	<div class="form-group">
+		<div class="col-sm-6">
+			<input type="text" class="form-control" placeholder="Name" ng-model="user.userData.name">
+		</div>
+	</div>
+
+	<div class="form-group">
+	
+		<div class="col-sm-6">
+			<input type="text" class="form-control" placeholder="Username" ng-model="user.userData.username">
+		</div>
+	</div>
+
+	<div class="form-group">
+		
+		<div class="col-sm-6">
+			<input type="password" class="form-control" placeholder="Password" ng-model="user.userData.password">
+		</div>
+	</div>
+	
+	<div class="form-group">
+	<div class="col-sm-offset-0 col-sm-6">
+	
+	<ul class="nav navbar-nav">
+		<li><button type="submit" class="btn btn-primary">Create User</button></li>
+		<li><div class="validation-message" ng-show="user.message" >
+			{{ user.message }}
+		</div></li>
+	</ul>
+		
+	</div>
+	</div>
+
+</form>
+
+<table class="table table-bordered table-striped" ng-show="user.users">
+	<thead>
+		<tr>
+			<th>_id</th>
+			<th>Name</th>
+			<th>Username</th>
+			<th class="col-sm-2">Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="person in user.users">
+			<td>{{ person._id }}</td>
+			<td>{{ person.name }}</td>
+			<td>{{ person.username }}</td>
+			<td class="col-sm-2">
+				<a href="#" ng-click="user.deleteUser(person._id)" class="btn btn-danger btn-xs">Delete</a>
+			</td>
+		</tr>
+	</tbody>
+</table>

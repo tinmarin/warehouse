@@ -1,0 +1,76 @@
+<div class="page-header">
+	<h3>Create your request</h3>
+
+<p>Request new products to be added to our storage. Please, <strong>check first</strong> our <a href="/products">product list</a>.</p>
+</div>
+
+<div class="left-container">
+    <p>Add products to your request</p>
+    <form name="requestForm" class="form-horizontal" ng-submit="request.addPendingProduct()" novalidate>
+      <div class="form-group" ng-if="request.addProductError">
+        <div class="col-sm-6">
+          <div class="alert alert-danger form-control" id="validationError">
+           {{request.addProductError}}
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-10">
+          <input name="nameInput" type="text" class="form-control" placeholder="Name" ng-model="request.requestProduct.name" maxlength="53" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-10">
+          <input name="skuInput" type="text" class="form-control" placeholder="SKU" ng-model="request.requestProduct.sku" maxlength="20" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-10">
+          <input name="urlInput" type="url" class="form-control" placeholder="URL address" ng-model="request.requestProduct.url" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-10">
+          <label>
+            <input type="checkbox" ng-model="request.requestProduct.priority">
+            Check for <strong>high priority</strong> product 
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-offset-0 col-sm-8">
+         <button type="submit" class="btn btn-primary" ng-disabled="requestForm.$invalid">Add Product</button>
+        </div>
+      </div>
+
+    </form>
+</div>
+
+<div class="right-container">
+  <div class="add-request-container" ng-hide="request.products.length == 0">
+    <p>Review your products before submiting your request</p> 
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>SKU</th>
+          <th>URL</th>
+          <th class="col-sm-2">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="item in request.products track by $index">
+          <td>{{ item.name }}</td>
+          <td>{{ item.sku }}</td>
+          <td>{{ item.url }}</td>
+          <td class="col-sm-2">
+            <a href="#" ng-click="request.deletePendingProduct($index)" class="btn btn-xs btn-danger">Delete</a>
+          </td>
+        </tr>
+      </tbody>
+    </table> 
+
+  <button class="pull-right btn btn-primary" ng-click="request.savePendingRequest()">Save Request</button>  
+  </div>
+</div>

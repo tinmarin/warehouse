@@ -1,0 +1,93 @@
+<div class="well">
+	<div style="text-align: center;">
+	  <h2>Let us know!</h2>
+	  <p>We want to hear what products, tools, or actually, anything you want us to add to our warehouse</p>
+	  <p><a class="btn btn-primary" href="/requests/create">Make a request</a></p>
+	</div>
+</div>
+
+<!-- NON-PERMANENT PRODUCTS LIST -->
+<div class="col-sm-8">
+	<div class="col-sm-12 list-header">
+		<div class="col-md-6 search-wrapper">     
+			<input type="text" class="form-control btn-sm search-field" placeholder="Search..." ng-model="home.searchFilter">
+			<span class="glyphicon glyphicon-search btn-lg search-icon" style="position: absolute;"></span>
+		</div>
+		<div class="col-md-6 cart-link">
+			<span class="glyphicon glyphicon-shopping-cart"></span><a href="/orders/cart"> Cart <span class="badge">{{home.itemsInCart()}}</span></a>
+		</div>
+	</div>
+	<div>
+		<div ng-repeat="item in home.products 
+					| filter:home.searchFilter 
+					| orderBy:'name'" class="col-sm-12">
+				<div class="product-container">
+					<img src="assets/imgs/products/{{item.sku}}.jpg" class="img-rounded product-img">
+					<div class="product-description">
+						<p><strong>{{item.name}}</strong></p>
+						
+						<p><u>SKU #</u> <em>{{item.sku}} </em> |
+						<u> Units per order</u> <em>{{item.unitsPack}}</em> |
+						<u> Seller</u> <em>{{item.provider}}</em> </p>
+						<p>{{item.description}}</p>
+						<form name="addToCart" class="form-inline" ng-submit="home.addToCart(item)" novalidate>
+							<a class="btn btn-primary btn-xs" onClick="home.setData(item)" data-toggle="modal" href="#add-cart">+ add to cart</a>
+						</form>
+					</div>
+				</div>
+			<div style="clear: both;"></div>
+		</div>
+	</div>
+
+
+	
+	<div id="add-cart" class="modal fade">
+	 	<div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		        <h4 class="modal-title">Add to cart</h4>
+		      </div>
+		      <div class="modal-body">
+		      <h3>{{home.product.name}}</h3>
+		        <p>One fine body…</p>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="expression">+ Add to cart</button>
+		      </div>
+		    </div>
+  		</div>
+	</div>
+	
+
+</div>
+
+<!-- PENDING REQUESTS -->
+<div class="col-sm-4">
+	<h3>See what others are requesting</h3>
+	<br>
+
+	<div class="list-group">
+		<div class="list-group-item" ng-repeat="item in home.requests">
+	    	<h4 class="list-group-item-heading">{{item.user}}</h4>
+	    	<p class="list-group-item-text">
+	    		
+		        <div ng-repeat="prod in item.products">
+		          <div>
+		            <strong>{{prod.name}}</strong>
+		           
+		              <p><small><u>SKU #</u> </small><em>{{prod.sku}}</em>
+		              <a href="{{prod.url}}" target="_blank" class="glyphicon glyphicon-new-window pull-right"></a> 
+		          </div>
+		        </div>
+	    	</p>
+	  	</div>
+	</div>
+
+	
+  <div ng-show="home.requests.length == 0">
+    <p style="text-align: center;">There is no pending requests</p>
+  </div>
+</div>
+<div style="clear: both;"></div>
+

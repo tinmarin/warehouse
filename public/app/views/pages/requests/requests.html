@@ -1,0 +1,37 @@
+<div class="page-header">
+	<h3>Requests</h3>
+</div>
+<div>
+<table class="table table-bordered table-striped" >
+	<thead>
+		<tr>
+			<th>Request #</th>
+			<th>Requested By</th>
+			<th>Requested Date</th>
+			<th>Processed By</th>
+			<th>Processed Date</th>
+			<th>Total Products</th>
+			<th>Status</th>
+			<th class="col-sm-2">Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="item in request.requests | orderBy:'date'">
+			<td>{{ item.date }}</td>
+			<td>{{ item.user }}</td>
+			<td>{{ item.date | date: "MMM d, y" }}</td>
+			<td>{{ item.processedBy }}</td>
+			<td>{{ item.processedDate | date:"MMM d, y" }}</td>
+			<td>{{ item.products.length }}</td>
+			<td>{{ item.status }}</td>
+			<td class="col-sm-2">
+			<div>
+				<a href="/requests/details" class="btn btn-xs btn-primary" ng-click="request.setCurrentRequest(item)">Details</a>
+				&nbsp;
+				<a href="#" ng-click="request.cancelRequest(item._id)" class="btn btn-xs btn-danger"ng-show="item.status == 'pending'">Cancel</a>
+			</div>
+			</td>
+		</tr>
+	</tbody>
+</table>
+</div>
