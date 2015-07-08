@@ -1,4 +1,4 @@
-angular.module('suppliesApp', [ 'app.routes', 'authService','mainCtrl', 'dataService', 'dataCtrl'])
+angular.module('suppliesApp', [ 'app.routes', 'authService','mainCtrl', 'dataService', 'dataCtrl', 'ui.bootstrap.modal'])
 
 // application configuration to integrate token into requests
 .config(function($httpProvider) {
