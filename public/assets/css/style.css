@@ -154,6 +154,12 @@ hr.thin-line {
 	padding: 6px 10px 0;
 }
 
+.filters {
+	padding-top: 8px;
+}
 
+.filters > label {
+	font-weight: normal;
+}
 /*---------*/
 

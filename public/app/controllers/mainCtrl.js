@@ -5,18 +5,6 @@ angular.module('mainCtrl', ['dataService'])
 	var vm = this;
 
 	vm.loggedIn = AuthHandler.isLoggedIn();
-
-	Request.pending().success(function(data){
-		vm.requests = data;
-	});
-
-	Product.all().success(function(data){
-		vm.products = data;
-	});
-
-	vm.itemsInCart = function(){
-		return Cart.getSize();
-	};
 	
 	//check to see if a user is logged in on every request
 	$rootScope.$on('$routeChangeStart', function(){
@@ -60,17 +48,7 @@ angular.module('mainCtrl', ['dataService'])
 		
 	};
 
-	vm.addToCart = function(product) {
-
-		product.quantity = parseInt(vm.quantity);
-		
-		Cart.addToCart(product);
-
-	};
-
-	vm.setCurrentRequest = function(item){
-		Request.setCurrent(item);
-	};
+	
 	
 })
 
@@ -171,5 +149,94 @@ angular.module('mainCtrl', ['dataService'])
     	$modalInstance.dismiss('cancel');
   	};
 
+})
+
+.controller('adminController', function($scope, $location, $modal, AuthHandler, Product, Request, Cart){
+
+	var vm = this;
+
+	Request.pending().success(function(data){
+		vm.requests = data;
+	});
+
+	Product.all().success(function(data){
+		vm.products = data;
+	});
+
+	vm.itemsInCart = function(){
+		return Cart.getSize();
+	};
+
+	vm.addToCart = function(product, index) {
+
+		var qty = $('#quantity'+index).val();
+
+		var formName = "addCartForm"+index;
+
+		if(qty > 0 && qty < 100){
+
+			product.quantity = parseInt(qty);
+			
+			Cart.addToCart(product);
+
+			$('[name=alert'+index+']').hide();
+			$('[name=success'+index+']').show();
+			$('[name='+formName+']').removeClass('has-error');
+			$('#quantity'+index).val("");
+
+
+
+		} else {
+			$('[name=success'+index+']').hide();
+			$('[name=alert'+index+']').show();
+			$('[name='+formName+']').addClass('has-error');
+		}
+
+		
+
+	};
+
+	vm.setCurrentRequest = function(item){
+		Request.setCurrent(item);
+	};
+
+	vm.showCart = function (){
+
+		var modalInstance = $modal.open({
+
+			templateUrl : 'app/views/pages/manager/cart.html',
+			controller  : 'cartController',
+			controllerAs: 'cart',
+			backdropClass: 'fixed',
+			size:'lg'
+		});
+
+		modalInstance.result.then(function () {
+	      
+	      	var order = {};
+
+			AuthHandler.getUser()
+			.then(function(data){
+				console.log(data);
+				order.user = { name    : data.data.name,
+							   username: data.data.username,
+							   email   : data.data.email };
+				order.products = vm.products;
+				
+				Order.create(order)
+					.then(function(){
+
+						$location.path('/orders/done');
+						Cart.setCart();
+
+					});
+				
+			});
+
+	    });
+
+
+
+	};
 });
 

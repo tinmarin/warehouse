@@ -34,7 +34,7 @@
     </table> 
     <div ng-show="request.currentRequest.status == 'pending'">
     	<hr>
-	    <button type="submit" class="btn btn-primary" ng-click="request.processRequest()">Done</button>
+	    <button type="submit" class="btn btn-warning" ng-click="request.processRequest()">Done</button>
 	    <small style="padding-left: 10px"><em>Unsaved products will be deleted when done with request</em></small>
     </div>
     <div ng-show="request.currentRequest.status == 'processed'">
@@ -97,7 +97,7 @@
 	     	<div class="pull-right">
 	     		<p>{{request.message}}</p>
 	         	<button type="submit" class="btn btn-primary" ng-disabled="createProductForm.$invalid" ng-click="request.saveProduct()">Save</button>&nbsp;&nbsp;
-	        	<button type="submit" class="btn btn-primary" ng-disabled="createProductForm.$invalid" ng-click="request.createAndAddToCart()">Save & add to cart</button>
+	        	<button type="submit" class="btn btn-success" ng-disabled="createProductForm.$invalid" ng-click="request.createAndAddToCart()">Save & add to cart</button>
 	        </div>
       	</div>
       </div>

@@ -1,106 +1,82 @@
 <!-- ADD TO CART PRODUCTS -->
 <div class="col-md-8">
-	
-		<div class="make-order-header">
-			<div class="col-md-8 search-wrapper">
-				<div class="col-md-6 search-wrapper">
-				
-				    
-				     
-				    <input type="text" class="form-control btn-sm search-field" placeholder="Search..." ng-model="main.searchFilter">
-
-				    <span class="glyphicon glyphicon-search btn-lg" id="searchIcon"></span>
-
-				   
-				</div>
-				<div class="filters">
-					<label>
-			   	 		<input type="checkbox" ng-model="main.filter1" ng-true-value="'Home Depot'" ng-false-value="''">
-			   			Home Depot &nbsp;&nbsp;
-			  		</label>
-					<label>
-			   	 		<input type="checkbox" ng-model="main.filter2" ng-true-value="'HD Supply'" ng-false-value="''"> 
-			   	 		HD Supply
-			  		</label>
-			  	</div>
+	<div class="col-sm-12 list-header">
+		<div class="col-md-10">     
+			<div class="col-md-6 search-wrapper">
+				<input type="text" class="form-control btn-sm search-field" placeholder="Search..." ng-model="admin.searchFilter">
+				<span class="glyphicon glyphicon-search btn-lg search-icon" style="position: absolute;"></span>
 			</div>
-			<div class="col-md-4 cart-text text-right">
-				<span class="glyphicon glyphicon-shopping-cart"></span><a href="/orders/cart"> Cart <span class="badge">{{main.itemsInCart()}}</span></a>
-			</div>
-		</div>
-	<div class="clearer"></div>
-	<div class="all-products-container">
-	<div ng-repeat="item in main.products 
-					| filter:main.searchFilter 
-					| orderBy:'name' 
-					| filter: main.filter1 
-					| filter: main.filter2" 
-
-					class="col-xs-6 product-container-wrapper">
-		<div class="product-container">
-			<p><strong>{{item.name}}  </strong><span class="glyphicon glyphicon-link hidden-icon"></span></p>
 			
-			<p>sku: <em>{{item.sku}}</em></p>
-			<p>units per pack: <em>{{item.unitsPack}}</em></p>
-		
-			<p>Provider: <em>{{item.provider}}</em></p>
-			<form name="addToCart" class="form-inline" ng-submit="main.addToCart(item)" novalidate>
-				<input name="qty" type="number" min="1" max="99" maxlength="2" class="quantity-text form-control btn-xs" ng-model="main.quantity" required> 
-				<button type="submit" class="btn-xs" ng-disabled="addToCart.qty.$invalid">add to cart</button>
-			</form>
+			<div class="col-md-6 filters">
+				<label>
+			   	 	<input type="checkbox" ng-model="admin.filter1" ng-true-value="'Home Depot'" ng-false-value="''">
+			   			Home Depot &nbsp;&nbsp;
+			   	</label>
+				<label>
+			   	 	<input type="checkbox" ng-model="admin.filter2" ng-true-value="'HD Supply'" ng-false-value="''"> 
+			   	 		HD Supply
+			  	</label>
+			</div>
+		</div>
+		<div class="col-md-2 cart-link">
+			<span class="glyphicon glyphicon-shopping-cart"></span><a href="#" ng-click="admin.showCart()">Cart <span class="badge">{{admin.itemsInCart()}}</span></a>
 		</div>
 	</div>
-	<div class="clearer"></div>
+	<div>
+		<div ng-repeat="item in admin.products 
+					| filter:admin.searchFilter 
+					| orderBy:'name'
+					| filter: admin.filter1 
+					| filter: admin.filter2" class="col-sm-12">
+				<div class="product-container">
+					<img src="assets/imgs/products/{{item.sku}}.jpg" class="img-rounded product-img">
+					<div class="product-description">
+						<p><strong>{{item.name}}</strong></p>
+						
+						<p><u>SKU #</u> <em>{{item.sku}} </em> |
+						<u> Units per order</u> <em>{{item.unitsPack}}</em> |
+						<u> Seller</u> <em>{{item.provider}}</em> </p>
+						<p>{{item.description}}</p>
+
+
+						<small name="alert{{$index}}" style="color: #b94a48;" hidden>
+							<strong>Quantity is not valid!</strong>
+						</small>
+						<small name="success{{$index}}" style="color: #468847;" hidden>
+							<strong>Added!</strong>
+						</small>
+						<form name="addCartForm{{$index}}" class="form-inline" novalidate>
+
+							<input  class="form-control" style="width:60px;" type="number" id="quantity{{$index}}" placeholder="Qty" required>
+							<button class="btn btn-default" ng-click="admin.addToCart(item, $index)">+ add to cart</button>
+						</form>
+						
+					</div>
+				</div>
+				<hr>
+			<div style="clear: both;"></div>
+		</div>
 	</div>
 </div>
 
-<!-- PENDING REQUESTS  
-<div class="col-md-4 right-container">
-	<h4>Pending requests</h4>
-	<hr>
-	<div ng-repeat="item in main.requests">
-		<div class="request-pending-container">
-			<strong class="text-left">{{item.user}}</strong>
-			<small class="align-right">{{item.date | date: "MMM d, y"}}</small>
-			<br>
-			<a href="/requests/details" class="align-right" ng-click="main.setCurrentRequest(item)">Details</a>
-			<div ng-repeat="prod in item.products">
-				<em>{{prod.sku}}</em>
-			</div>
-		</div>
-	</div>
-	<div ng-show="main.requests.length == 0">
-    <p>There is no pending requests</p>
-  </div>
-</div>
--->
+<!-- PENDING REQUESTS  -->
 
 <div class="col-md-4">
-  <h4>Pending requests</h4>
+  <h3>Pending requests</h3>
   <hr>
-  <div ng-repeat="item in main.requests">
-    <div class="request-pending-container" style="border: 1px solid #ccc">
-      <small class="text-left">By: </small><strong >{{item.user}}</strong>
-      <small class="pull-right">On: <strong>{{item.date | date: "MMM d, y" }}</strong></small>
-      <br>
-      <hr style="border-top: 1px dashed #ccc">
-
-      <small class="text-left">Products:</small>
-      <a href="/requests/details" class="pull-right" ng-click="main.setCurrentRequest(item)">Details</a>
-      <ol class="request-products-list">
-        <li ng-repeat="prod in item.products" >
-          <div>
-            <em>{{prod.name}}</em>
-            <div class="pull-right">
-              <small>SKU #: </small><em>{{prod.sku}}</em>&nbsp;&nbsp;<a href="{{prod.url}}" target="_blank" class="glyphicon glyphicon-new-window"></a> 
-            </div>
-          </div>
-        </li>
-      </ol>
-      
-    </div>
-  </div>
   <div ng-show="request.pendingRequests.length == 0">
     <p>There is no pending requests</p>
   </div>
+ 	<div class="list-group">
+	  <a href="/requests/details" class="list-group-item" ng-repeat="item in admin.requests" ng-click="admin.setCurrentRequest(item)">
+	  	<div class="list-group-item-heading">
+	   		<small class="pull-right"><strong>{{item.date | date: "MMM d, y"}}</strong></small>
+	   		<h4>{{item.user}}</h4>
+	    </div>
+	    <div class="list-group-item-text" ng-repeat="prod in item.products">
+	    	<p>{{prod.name}}</p>
+	    </div>
+	  </a>
+
+	</div>
 </div>

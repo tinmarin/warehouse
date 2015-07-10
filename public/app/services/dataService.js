@@ -147,7 +147,8 @@ angular.module('dataService', [])
 
  			if(_cart[i]._id == product._id){
 
- 				_cart[i].quantity += product.quantity;
+ 				if((_cart[i].quantity + product.quantity) < 100)
+ 					_cart[i].quantity += product.quantity;
  				return true;
  			}
 

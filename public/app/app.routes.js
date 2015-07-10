@@ -19,8 +19,8 @@ angular.module('app.routes', ['ngRoute'])
 		.when('/admin/home', {
 
 			templateUrl : 'app/views/pages/admin-home.html',
-			controller  : 'mainController',
-			controllerAs: 'main'
+			controller  : 'adminController',
+			controllerAs: 'admin'
     	
     	})
 
