@@ -1,12 +1,12 @@
 <div class="page-header">
 	<h3>Products</h3>
 </div>
-<div class="col-sm-6">
+<div class="col-sm-6" ng-if="isAdmin">
 <form name="productForm" class="form-horizontal" ng-submit="product.createProduct()" novalidate>
 	
 	<div class="form-group">
 		<div class="col-sm-12">
-			<input type="text" class="form-control" placeholder="Name" ng-model="product.productData.name"  required>
+			<input type="text" class="form-control" placeholder="Name" ng-model="product.productData.name" maxlength="80" required>
 		</div>
 	</div>
 	<div class="form-group">
@@ -15,24 +15,33 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<div class="col-sm-6">
+		<div class="col-sm-4">
 			<input type="text" class="form-control" placeholder="SKU" ng-model="product.productData.sku" maxlength="20" required>
 		</div>
-		<div class="col-sm-6">
-			<select class="form-control" placeholder="Provider" ng-model="product.productData.provider" ng-options="option.name for option in product.PROVIDERS" required>
+		<div class="col-sm-4">
+			<input type="number" class="form-control" placeholder="Units/Order" ng-model="product.productData.unitsPack" min="1" max="99" required>
+		</div>
+		<div class="col-sm-4">
+			<select class="form-control" ng-model="product.productData.provider" ng-options="option for option in PROVIDERS" required>
 				<option value="">-- Select Provider --</option>
 			</select>
 	    </div>
 	</div>
 	<div class="form-group">
 		<div class="col-sm-4">
-			<input type="number" class="form-control" placeholder="Units per pack" ng-model="product.productData.unitsPack" min="1" max="99" required>
+			<label>
+           		<input type="checkbox" ng-init="product.productData.permanent = false" ng-model="product.productData.permanent" 
+       			 ng-checked="product.productData.permanent">
+            	Permanent in stock
+          </label>
 		</div>
-		<div class="col-sm-4">
-			<input type="number" class="form-control" placeholder="In stock" ng-model="product.productData.stock" min="0" max="99" required>
-		</div>
-	    <div class="col-sm-4">
-          <input name="limitInput" type="number" class="form-control" placeholder="Minimun in stock" min="0" max="99" ng-model="product.productData.limit" required>
+		<div ng-show="product.productData.permanent"> 
+			<div class="col-sm-4">
+				<input type="number" class="form-control" placeholder="In stock" ng-model="product.productData.stock" min="0" max="99">
+			</div>
+		    <div class="col-sm-4">
+	          <input type="number" class="form-control" placeholder="Minimun in stock" min="0" max="99" ng-model="product.productData.limit">
+	        </div>
         </div>
 
 	</div>
@@ -65,8 +74,10 @@
 			<th>Keywords</th>
 			<th>SKU</th>
 			<th>Provider</th>
-			<th>Units per pack</th>
-			<th>Action</th>
+			<th>Units/Order</th>
+			<th>Limit</th>
+			<th>Existencies</th>
+			<th ng-if="isAdmin">Action</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -77,7 +88,9 @@
 			<td>{{ item.sku }}</td>
 			<td>{{ item.provider }}</td>
 			<td>{{ item.unitsPack }}</td>
-			<td>
+			<td>{{ item.limit }}</td>
+			<td>{{ item.stock }}</td>
+			<td ng-if="isAdmin">
 				<a href="#" ng-click="product.deleteProduct(item._id)" class="btn btn-xs btn-danger">Delete</a>
 			</td>
 		</tr>

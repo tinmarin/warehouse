@@ -15,11 +15,14 @@ module.exports = function(app, express) {
 	//-----------------------
 	//   Product routes		|
 	//-----------------------
-
 	apiRouter.route('/products')
 
 		.post(function(req, res) {
 			
+
+			console.log(req.body);
+
+
 			//TODO validate existence
 			var product = new Product();	
 			
@@ -31,7 +34,9 @@ module.exports = function(app, express) {
 			if (req.body.limit) product.limit 			= req.body.limit;
 			if (req.body.stock) product.stock 			= req.body.stock;
 			if (req.body.description) product.description 	= req.body.description;
+			if (req.body.permanent) product.permanent 	= req.body.permanent;
 
+			
 			product.save(function(err) {
 				if (err) {
 					return res.send(err);
@@ -50,6 +55,19 @@ module.exports = function(app, express) {
 				// return the products
 				res.json(products);
 			});
+		});
+
+	apiRouter.route('/products/nonpermanent')
+
+		.get(function(req, res){
+			Product.find({
+	   			 permanent: false
+	 		},function(err, products){
+
+
+	 			res.json(products);
+
+	 		});
 		});
 
 	apiRouter.route('/products/:product_id')
@@ -77,7 +95,7 @@ module.exports = function(app, express) {
 				if (req.body.provider) product.provider 	= req.body.provider;
 				if (req.body.sku) product.sku 				= req.body.sku;
 
-				// save the user
+				
 				product.save(function(err) {
 					if (err) res.send(err);
 

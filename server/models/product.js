@@ -8,10 +8,12 @@ var productSchema   = new Schema({
 	unitsPack	: { type: Number, required: true},
 	provider 	: { type: String, required: true},
 	sku			: { type: String, required: true, index: { unique: true }},
-	limit       : { type: Number, default: 0},
-	stock       : { type: Number, default: 0},
-	description : { type: String, required: true}
+	limit       : Number,
+	stock       : Number, 
+	permanent   : { type : Boolean, default: false},  
+	description : { type : String, required: true}
 
 });
 
 module.exports = mongoose.model('Product', productSchema);
+

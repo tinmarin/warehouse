@@ -2,8 +2,6 @@
 	<h3>Request <small>(details)</small></h3>
 	<a href="/requests" class="text-right">Go back</a>
 </div>
-
-	
 </div>
 <div class="col-sm-6">
 	<div ng-show="request.currentRequest.products">
@@ -32,10 +30,9 @@
         </tr>
       </tbody>
     </table> 
-    <div ng-show="request.currentRequest.status == 'pending'">
-    	<hr>
+    <div ng-show="request.currentRequest.status == 'pending'" class="pull-right">
+      <small style="padding-right: 10px"><em>"not saved" products will be deleted when done with request</em></small>
 	    <button type="submit" class="btn btn-warning" ng-click="request.processRequest()">Done</button>
-	    <small style="padding-left: 10px"><em>Unsaved products will be deleted when done with request</em></small>
     </div>
     <div ng-show="request.currentRequest.status == 'processed'">
     	<p>Processed by <strong>{{request.currentRequest.processedBy}}</strong> on <strong>{{request.currentRequest.processedDate | date: "MMM d, y"}}</strong></p>
@@ -80,15 +77,9 @@
           <input name="limitInput" type="number" class="form-control" placeholder="Minimun in stock" min="0" max="99" ng-model="request.productData.limit">
         </div>
         <div class="col-sm-6">
-			<label>
-	   	 	<input type="radio" ng-model="request.productData.provider" value="Home Depot" ng-checked="true">
-	   		 Home Depot &nbsp;&nbsp;
-	  		</label>
-			<label>
-	   	 	<input type="radio" ng-model="request.productData.provider" value="HD Supply">
-	   		 HD Supply
-	  		</label>
-	
+            <select class="form-control" ng-model="request.productData.provider" ng-options="option for option in PROVIDERS" required>
+              <option value="">-- Select Provider --</option>
+            </select>
         </div>
       </div>
       <hr>

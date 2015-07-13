@@ -1,8 +1,10 @@
 angular.module('mainCtrl', ['dataService'])
 
-.controller('mainController', function($rootScope, $location, AuthHandler, Product, Request, Cart, $window) {
+.controller('mainController', function($rootScope, $location, AuthHandler, Product, Request, Cart, $window, PROVIDERS) {
 
 	var vm = this;
+
+	$rootScope.PROVIDERS = PROVIDERS;
 
 	vm.loggedIn = AuthHandler.isLoggedIn();
 	
@@ -15,7 +17,11 @@ angular.module('mainCtrl', ['dataService'])
 			.then(function(data) {
 
 				vm.user = data.data;
-
+				if(data.data.username == 'admin') {
+					$rootScope.isAdmin = true;
+				} else {
+					$rootScope.isAdmin = false;
+				}
 			});
 
 	});
@@ -28,7 +34,17 @@ angular.module('mainCtrl', ['dataService'])
 			.success(function(data) {
 				if (data.success){
 					
-					$location.path('/home');
+					var username;
+					AuthHandler.getUser()
+						.then(function(data) {
+
+							username = data.data.username;
+							if (username == 'admin')
+								$location.path('/admin/home');
+							else $location.path('/home');
+						});
+
+					
 					
 				}
 				else
@@ -60,7 +76,7 @@ angular.module('mainCtrl', ['dataService'])
 		vm.requests = data;
 	});
 
-	Product.all().success(function(data){
+	Product.getNonPermanent().success(function(data){
 		vm.products = data;
 	});
 
@@ -88,8 +104,6 @@ angular.module('mainCtrl', ['dataService'])
 			Cart.addToCart(product);
 
 
-	    }, function () {
-	      console.log('Modal dismissed at: ' + new Date());
 	    });
 	};
 
@@ -110,7 +124,7 @@ angular.module('mainCtrl', ['dataService'])
 
 			AuthHandler.getUser()
 			.then(function(data){
-				console.log(data);
+
 				order.user = { name    : data.data.name,
 							   username: data.data.username,
 							   email   : data.data.email };
@@ -154,6 +168,8 @@ angular.module('mainCtrl', ['dataService'])
 .controller('adminController', function($scope, $location, $modal, AuthHandler, Product, Request, Cart){
 
 	var vm = this;
+
+	vm.managersOrders = [];
 
 	Request.pending().success(function(data){
 		vm.requests = data;
@@ -238,5 +254,7 @@ angular.module('mainCtrl', ['dataService'])
 
 
 	};
+
+
 });
 

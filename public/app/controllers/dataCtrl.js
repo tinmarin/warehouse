@@ -66,28 +66,26 @@ angular.module('dataCtrl', ['dataService'])
 	Product.all().success(function(data){
 		vm.products = data;
 	});
-
-	vm.PROVIDERS = PROVIDERS;
 	
 	vm.createProduct = function() {
 
+		console.log(vm.productData);
+		
 		vm.message = '';
 		Product.create(vm.productData)
 			.success(function(data){
-				console.log(data.message);
 				vm.message = data.message;
-				$scope.productForm.$setPristine();
 				vm.productData = {};
 				Product.all()
 					.success(function(data){
 						vm.products = data;
 					});
 			});
+		
 	};
 
 	vm.deleteProduct = function(id) {
 
-		console.log('am trying to delete ' + id);
 		Product.delete(id)
 			.success(function(data) {
 

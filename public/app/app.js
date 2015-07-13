@@ -8,4 +8,4 @@ angular.module('suppliesApp', [ 'app.routes', 'authService','mainCtrl', 'dataSer
 	
 })
 
-.constant("PROVIDERS", [{name: "Home Depot"}, {name:"HD Supply"}]);
+.constant("PROVIDERS", ["Home Depot","HD Supply"]);

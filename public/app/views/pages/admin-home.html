@@ -24,8 +24,8 @@
 	</div>
 	<div>
 		<div ng-repeat="item in admin.products 
-					| filter:admin.searchFilter 
-					| orderBy:'name'
+					| filter: admin.searchFilter 
+					| orderBy:'item.limit'
 					| filter: admin.filter1 
 					| filter: admin.filter2" class="col-sm-12">
 				<div class="product-container">
@@ -35,7 +35,7 @@
 						
 						<p><u>SKU #</u> <em>{{item.sku}} </em> |
 						<u> Units per order</u> <em>{{item.unitsPack}}</em> |
-						<u> Seller</u> <em>{{item.provider}}</em> </p>
+						<u> Seller</u> <em>{{item.provider}}</em></p>
 						<p>{{item.description}}</p>
 
 
@@ -59,24 +59,35 @@
 	</div>
 </div>
 
-<!-- PENDING REQUESTS  -->
+
 
 <div class="col-md-4">
-  <h3>Pending requests</h3>
-  <hr>
-  <div ng-show="request.pendingRequests.length == 0">
-    <p>There is no pending requests</p>
-  </div>
- 	<div class="list-group">
-	  <a href="/requests/details" class="list-group-item" ng-repeat="item in admin.requests" ng-click="admin.setCurrentRequest(item)">
-	  	<div class="list-group-item-heading">
-	   		<small class="pull-right"><strong>{{item.date | date: "MMM d, y"}}</strong></small>
-	   		<h4>{{item.user}}</h4>
-	    </div>
-	    <div class="list-group-item-text" ng-repeat="prod in item.products">
-	    	<p>{{prod.name}}</p>
-	    </div>
-	  </a>
-
+	<!-- PENDING REQUESTS  -->
+	<div class="preview-container pending-requests">
+		<h3 class="preview-container-header">Pending requests</h3>
+		<div ng-show="admin.requests.length == 0">
+			<p>There is no pending requests</p>
+		</div>
+		<div class="list-group">
+			<a href="/requests/details" class="list-group-item" ng-repeat="item in admin.requests" ng-click="admin.setCurrentRequest(item)">
+				<div class="list-group-item-heading">
+				  	<small class="pull-right"><strong>{{item.date | date: "MMM d, y"}}</strong></small>
+				   	<h4>{{item.user}}</h4>
+				</div>
+				<div class="list-group-item-text" ng-repeat="prod in item.products">
+				    <p>{{prod.name}}</p>
+				</div>
+			</a>
+		</div>
 	</div>
+	<!-- MANAGERS ORDERS -->
+	<div class="preview-container managers-orders">
+		<h3 class="preview-container-header">Managers Orders</h3>
+	</div>
+	<div ng-show="admin.managersOrders.length == 0">
+			<p>No one is ordering</p>
+		</div>
 </div>
+
+
+

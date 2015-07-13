@@ -52,6 +52,10 @@ angular.module('dataService', [])
 		return $http.delete('/api/products/' + id);
 	};
 
+	productFactory.getNonPermanent = function() {
+		return $http.get('/api/products/nonpermanent');
+	};
+	
 	productFactory.exist = function(sku){
 
 		//TODO send request for product existence

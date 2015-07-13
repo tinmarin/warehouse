@@ -122,7 +122,7 @@ hr.thin-line {
 .well {
 
 	border: 1px solid #32A5E7;
-	background-color: #B2D9EF;
+	background-color: #DBECF5;
 
 }
 
@@ -160,6 +160,12 @@ hr.thin-line {
 
 .filters > label {
 	font-weight: normal;
+}
+
+.preview-container-header {
+	border-bottom: 1px solid #eee; 
+	padding-bottom: 8px;
+	margin-bottom: 14px;
 }
 /*---------*/
 
