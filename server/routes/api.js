@@ -176,34 +176,30 @@ module.exports = function(app, express) {
 				if (err) {
 					return res.send(err);
 				}
-
+				/*
 				utils.sendEmail({
 					from : "Second Plaza",
 					to 	 : req.body.user.email,
 					subject: "Order confirmation",
 					text : "Your order was received. You will be notified as soon as your product arrives to our warehouse."
 				});
-				//email order
-				/*
-				utils.emailOrder(order, {
-					from : "Second Plaza",
-					to 	 : "tinmarin60@gmail.com",
-					subject: "Second Plaza Order",
-					text : "Find order attached! Thank you!"
-				});
 				*/
-				
 				res.json({ message: 'Order submitted!' });
 
-			});
-
-			
-
 		});
+	});
+
+	apiRouter.route('/orders/managerorder').get(function(req, res){
+		ManagerOrder.find({}, function(err, orders) {
+				if (err) 
+					res.send(err);
+				// return the users
+				return res.json(orders);
+			});
+	});
 
 	apiRouter.route('/orders/:order_id')
 
-		// get the order with that id
 		.get(function(req, res) {
 			Order.findById(req.params.order_id, function(err, order) {
 				if (err) res.send(err);
@@ -236,7 +232,6 @@ module.exports = function(app, express) {
 			});
 		})
 
-		// delete the rrder with this id
 		.delete(function(req, res) {
 			Order.remove({
 				_id: req.params.order_id
@@ -339,7 +334,6 @@ module.exports = function(app, express) {
 					if (err) {
 						res.send(err);
 					}
-					console.log("Updated!");
 					res.json({ message: 'Request updated!' });
 				});
 

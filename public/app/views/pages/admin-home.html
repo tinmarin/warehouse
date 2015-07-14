@@ -83,10 +83,25 @@
 	<!-- MANAGERS ORDERS -->
 	<div class="preview-container managers-orders">
 		<h3 class="preview-container-header">Managers Orders</h3>
-	</div>
-	<div ng-show="admin.managersOrders.length == 0">
+		<div ng-show="admin.managersOrders.length == 0">
 			<p>No one is ordering</p>
 		</div>
+		<div class="list-group">
+			<a class="list-group-item" ng-repeat="item in admin.managersOrders">
+				<div class="list-group-item-heading">
+				  	<small class="pull-right"><strong>{{item.date | date: "MMM d, y"}}</strong></small>
+				   	<h4>{{item.user.name}}</h4>
+				</div>
+				<div class="list-group-item-text" ng-repeat="prod in item.products">
+				    <p>{{prod.name}}</p>
+				</div>
+				<div>
+					<button class="btn btn-primary btn-xs">+ add to cart</button>
+				</div>
+			</a>
+		</div>
+	</div>
+	
 </div>
 
 

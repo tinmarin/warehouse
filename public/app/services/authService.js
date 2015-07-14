@@ -1,6 +1,6 @@
 angular.module('authService', [])
 
-.factory('AuthHandler', function($http, $q, AuthToken, $cacheFactory, $rootScope){
+.factory('AuthHandler', function($http, $q, AuthToken, $cacheFactory, $rootScope, Request){
 	
 	var authHandlerFactory = {};
 
@@ -21,6 +21,7 @@ angular.module('authService', [])
 	authHandlerFactory.logout = function() {
 
 		AuthToken.setToken();
+		Request.setCurrent();
 		$cacheFactory.get('$http').removeAll();
 
 	};

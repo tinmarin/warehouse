@@ -128,7 +128,7 @@ angular.module('mainCtrl', ['dataService'])
 				order.user = { name    : data.data.name,
 							   username: data.data.username,
 							   email   : data.data.email };
-				order.products = vm.products;
+				order.products = Cart.getCart();
 				
 				Order.createManagerOrder(order)
 					.then(function(){
@@ -169,8 +169,10 @@ angular.module('mainCtrl', ['dataService'])
 
 	var vm = this;
 
-	vm.managersOrders = [];
-
+	Order.managerOrders().success(function(data){
+		vm.managersOrders = data;
+	});
+	
 	Request.pending().success(function(data){
 		vm.requests = data;
 	});
