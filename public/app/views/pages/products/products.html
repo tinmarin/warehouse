@@ -1,6 +1,14 @@
 <div class="page-header">
-	<h3>Products</h3>
+	<h3 class="col-sm-8" style="margin-top:0px;">Products</h3>
+	
+	<div class="col-sm-4 search-wrapper pull-right right-side">     
+			<input type="text" class="form-control btn-sm search-field" placeholder="Search for keyword or sku..." ng-model="product.searchFilter">
+			<span class="glyphicon glyphicon-search btn-lg search-icon" style="position: absolute;"></span>
+	</div>
+	
+	<div class="clearer"></div>
 </div>
+
 <div class="col-sm-6" ng-if="isAdmin">
 <form name="productForm" class="form-horizontal" ng-submit="product.createProduct()" novalidate>
 	
@@ -29,7 +37,7 @@
 	</div>
 	<div class="form-group">
 		<div class="col-sm-4">
-			<label>
+			<label style="font-weight: normal;">
            		<input type="checkbox" ng-init="product.productData.permanent = false" ng-model="product.productData.permanent" 
        			 ng-checked="product.productData.permanent">
             	Permanent in stock
@@ -66,30 +74,32 @@
 </form>
 </div>
 
-<table class="table table-striped table-hover" ng-show="product.products">
+<table class="table table-hover" ng-show="product.products">
 	<thead>
 		<tr>
 			<th>#</th>
+			<th></th>
 			<th>Name</th>
 			<th>Keywords</th>
 			<th>SKU</th>
 			<th>Provider</th>
-			<th>Units/Order</th>
-			<th>Limit</th>
-			<th>Existencies</th>
+			<th ng-if="isAdmin">Units/Order</th>
+			<th ng-if="isAdmin">Limit</th>
+			<th ng-if="isAdmin">Existencies</th>
 			<th ng-if="isAdmin">Action</th>
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="item in product.products">
+		<tr ng-repeat="item in product.products | filter:product.searchFilter">
 			<td>{{ $index+1 }}</td>
+			<td><img src="assets/imgs/products/{{item.sku}}.jpg" class="cart-product-img img-thumbnail"></td>
 			<td>{{ item.name }}</td>
 			<td>{{ item.keywords }}</td>
 			<td>{{ item.sku }}</td>
 			<td>{{ item.provider }}</td>
-			<td>{{ item.unitsPack }}</td>
-			<td>{{ item.limit }}</td>
-			<td>{{ item.stock }}</td>
+			<td ng-if="isAdmin">{{ item.unitsPack }}</td>
+			<td ng-if="isAdmin">{{ item.limit }}</td>
+			<td ng-if="isAdmin">{{ item.stock }}</td>
 			<td ng-if="isAdmin">
 				<a href="#" ng-click="product.deleteProduct(item._id)" class="btn btn-xs btn-danger">Delete</a>
 			</td>

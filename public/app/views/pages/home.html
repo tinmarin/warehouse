@@ -8,7 +8,7 @@
 </div>
 
 <!-- NON-PERMANENT PRODUCTS LIST -->
-<div class="col-sm-8">
+<div class="col-sm-8 left-side">
 	<div class="col-sm-12 list-header">
 		<div class="col-md-6 search-wrapper">     
 			<input type="text" class="form-control btn-sm search-field" placeholder="Search..." ng-model="home.searchFilter">
@@ -22,7 +22,7 @@
 		<div ng-repeat="item in home.products 
 					| filter:home.searchFilter 
 					| orderBy:'name'" class="col-sm-12">
-				<div class="product-container">
+				<div class="product-container animated fadeIn">
 					<img src="assets/imgs/products/{{item.sku}}.jpg" class="img-rounded product-img">
 					<div class="product-description">
 						<p><strong>{{item.name}}</strong></p>
@@ -41,7 +41,7 @@
 </div>
 
 <!-- PENDING REQUESTS -->
-<div class="col-sm-4">
+<div class="col-sm-4 right-side">
 	<h3>See what others are requesting</h3>
 	<br>
 

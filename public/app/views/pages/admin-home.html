@@ -1,7 +1,7 @@
 <!-- ADD TO CART PRODUCTS -->
-<div class="col-md-8">
+<div class="col-md-8 left-side">
 	<div class="col-sm-12 list-header">
-		<div class="col-md-10">     
+		<div class="col-md-10 left-side">     
 			<div class="col-md-6 search-wrapper">
 				<input type="text" class="form-control btn-sm search-field" placeholder="Search..." ng-model="admin.searchFilter">
 				<span class="glyphicon glyphicon-search btn-lg search-icon" style="position: absolute;"></span>
@@ -18,7 +18,7 @@
 			  	</label>
 			</div>
 		</div>
-		<div class="col-md-2 cart-link">
+		<div class="col-md-2 cart-link" id="cart-link">
 			<span class="glyphicon glyphicon-shopping-cart"></span><a href="#" ng-click="admin.showCart()">Cart <span class="badge">{{admin.itemsInCart()}}</span></a>
 		</div>
 	</div>
@@ -28,8 +28,8 @@
 					| orderBy:'item.limit'
 					| filter: admin.filter1 
 					| filter: admin.filter2" class="col-sm-12">
-				<div class="product-container">
-					<img src="assets/imgs/products/{{item.sku}}.jpg" class="img-rounded product-img">
+				<div class="product-container animated fadeIn">
+					<img src="assets/imgs/products/{{item.sku}}.jpg" class="img-responsive product-img">
 					<div class="product-description">
 						<p><strong>{{item.name}}</strong></p>
 						
@@ -61,7 +61,7 @@
 
 
 
-<div class="col-md-4">
+<div class="col-md-4 right-side">
 	<!-- PENDING REQUESTS  -->
 	<div class="preview-container pending-requests">
 		<h3 class="preview-container-header">Pending requests</h3>

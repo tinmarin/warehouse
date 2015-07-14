@@ -3,7 +3,7 @@
 	<a href="/requests" class="text-right">Go back</a>
 </div>
 </div>
-<div class="col-sm-6">
+<div>
 	<div ng-show="request.currentRequest.products">
 	<div>
 		<p>Requested by <strong>{{request.currentRequest.user}}</strong> on <strong>{{request.currentRequest.date | date: "MMM d, y"}}</strong></p>
@@ -42,7 +42,8 @@
     </div>
     </div>
 </div>
-<div class="col-sm-6" ng-show="request.currentRequest.status == 'pending'">
+<br><br>
+<div class="col-sm-6 left-side" ng-show="request.currentRequest.status == 'pending'">
 <p>Product information:</p>
 <div class="create-product">
 	<form name="createProductForm" class="form-horizontal" novalidate>

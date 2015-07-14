@@ -1,3 +1,7 @@
+body {
+	letter-spacing: .2px;
+}
+
 main {
 	
 	margin-bottom: 20px;
@@ -42,12 +46,27 @@ hr.thin-line {
 
 }
 
+
+.clearer {
+	clear: both;
+}
+.right-side{
+
+	padding-right: 0px;
+
+}
+
+.left-side {
+	padding-left: 0px;
+}
+
 .product-container {
 
 	/*border-bottom: 1px solid #B2D9EF;*/
 	margin-bottom: 0px;
 	padding-bottom: 14px;
 	min-height: 160px;
+	text-align: justify;
 
 }
 

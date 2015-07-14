@@ -89,7 +89,7 @@ function createPDF(order, body, callback){
 
 			doc.text(order.products[i].sku, defaultLeftMargin, doc.y, { lineBreak: false})
 				.text(order.products[i].quantity, secondColumn, doc.y, {lineBreak:false})
-				.text(order.products[i].name, thirdColumn, doc.y);
+				.text(order.products[i].name, thirdColumn, doc.y).moveDown();
 
 		} else {
 			hdsupply.push(order.products[i]);
@@ -98,15 +98,17 @@ function createPDF(order, body, callback){
 
 	doc.moveDown();
 
-	doc.text("HD Supply", defaultLeftMargin, doc.y).moveDown();
+	if(hdsupply.length > 0){
+		doc.text("HD Supply", defaultLeftMargin, doc.y).moveDown();
 
-	//drawing hd supply products
-	for(var j = 0; j < hdsupply.length; j++){
+		//drawing hd supply products
+		for(var j = 0; j < hdsupply.length; j++){
 
-		doc.text(hdsupply[j].sku, defaultLeftMargin, doc.y, { lineBreak: false})
-				.text(hdsupply[j].quantity, secondColumn, doc.y, {lineBreak:false})
-				.text(hdsupply[j].name, thirdColumn, doc.y);
+			doc.text(hdsupply[j].sku, defaultLeftMargin, doc.y, { lineBreak: false})
+					.text(hdsupply[j].quantity, secondColumn, doc.y, {lineBreak:false})
+					.text(hdsupply[j].name, thirdColumn, doc.y);
 
+		}
 	}
 	
 	doc.pipe(fs.createWriteStream(fileName));

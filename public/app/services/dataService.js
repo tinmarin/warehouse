@@ -79,6 +79,10 @@ angular.module('dataService', [])
 		return $http.post('/api/orders', orderData);
 	};
 
+	orderFactory.createManagerOrder = function(orderData){
+		return $http.post('/api/orders/managerorder', orderData);
+	};
+
 	return orderFactory;
 
 })

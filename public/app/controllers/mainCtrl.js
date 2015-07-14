@@ -130,7 +130,7 @@ angular.module('mainCtrl', ['dataService'])
 							   email   : data.data.email };
 				order.products = vm.products;
 				
-				Order.create(order)
+				Order.createManagerOrder(order)
 					.then(function(){
 
 						$location.path('/orders/done');
@@ -165,7 +165,7 @@ angular.module('mainCtrl', ['dataService'])
 
 })
 
-.controller('adminController', function($scope, $location, $modal, AuthHandler, Product, Request, Cart){
+.controller('adminController', function($scope, $location, $modal, AuthHandler, Product, Request, Cart, Order){
 
 	var vm = this;
 
@@ -200,8 +200,6 @@ angular.module('mainCtrl', ['dataService'])
 			$('[name='+formName+']').removeClass('has-error');
 			$('#quantity'+index).val("");
 
-
-
 		} else {
 			$('[name=success'+index+']').hide();
 			$('[name=alert'+index+']').show();
@@ -233,11 +231,9 @@ angular.module('mainCtrl', ['dataService'])
 
 			AuthHandler.getUser()
 			.then(function(data){
-				console.log(data);
-				order.user = { name    : data.data.name,
-							   username: data.data.username,
-							   email   : data.data.email };
-				order.products = vm.products;
+
+				order.user = data.data.name;
+				order.products = Cart.getCart();
 				
 				Order.create(order)
 					.then(function(){

@@ -125,6 +125,47 @@ module.exports = function(app, express) {
 
 		.post(function(req, res) {
 
+			var order = Order({
+				user : req.body.user,
+				date : Date.now(),
+				products : req.body.products
+			});
+
+			order.save(function(err) {
+				if (err) {
+					return res.send(err);
+				}
+
+				utils.emailOrder(order, {
+					from : "Second Plaza",
+					to 	 : "tinmarin60@gmail.com",
+					subject: "Second Plaza Order",
+					text : "Find order attached! Thank you!"
+				});
+				
+				
+				res.json({ message: 'Order submitted!' });
+
+			});
+
+			
+
+		})
+
+		.get(function(req, res) {
+
+			Order.find({}, function(err, orders) {
+				if (err) 
+					res.send(err);
+				// return the users
+				res.json(orders);
+			});
+		});
+
+	apiRouter.route('/orders/managerorder')
+
+		.post(function(req, res) {
+
 			var managerOrder = ManagerOrder({
 				user : req.body.user,
 				date : Date.now(),
@@ -158,16 +199,6 @@ module.exports = function(app, express) {
 
 			
 
-		})
-
-		.get(function(req, res) {
-
-			Order.find({}, function(err, orders) {
-				if (err) 
-					res.send(err);
-				// return the users
-				res.json(orders);
-			});
 		});
 
 	apiRouter.route('/orders/:order_id')
