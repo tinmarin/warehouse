@@ -1,13 +1,13 @@
 angular.module('mainCtrl', ['dataService'])
 
-.controller('mainController', function($rootScope, $location, AuthHandler, Product, Request, Cart, $window, PROVIDERS) {
+.controller('mainController', function($rootScope, $modal, $location, AuthHandler, Product, Request, Cart, $window, PROVIDERS) {
 
 	var vm = this;
 
 	$rootScope.PROVIDERS = PROVIDERS;
 
 	vm.loggedIn = AuthHandler.isLoggedIn();
-	
+
 	//check to see if a user is logged in on every request
 	$rootScope.$on('$routeChangeStart', function(){
 
@@ -33,26 +33,19 @@ angular.module('mainCtrl', ['dataService'])
 		AuthHandler.login(vm.loginData.username, vm.loginData.password)
 			.success(function(data) {
 				if (data.success){
-					
-					var username;
-					AuthHandler.getUser()
-						.then(function(data) {
 
-							username = data.data.username;
-							if (username == 'admin')
-								$location.path('/admin/home');
-							else $location.path('/home');
-						});
+					//TODO implement Roles
+					if (vm.loginData.username == 'admin')
+						$location.path('/admin/home');
+					else 
+						$location.path('/home');
 
-					
-					
 				}
 				else
 					vm.error = data.message;
 			});
 
 	};
-
 
 	vm.doLogout = function() {
 
@@ -61,10 +54,23 @@ angular.module('mainCtrl', ['dataService'])
 		vm.user = '';
 
 		$location.path('/');
-		
 	};
 
-	
+	var elems = document.getElementsByTagName( 'a' );
+
+ 
+
+	for ( var i = 0; i < elems.length; i++ ) {
+
+ 		elems[ i ].addEventListener( 'click', function(e){
+
+			e.preventDefault();
+
+			console.log("am element # "+ i );
+
+		}	, 'false' );
+
+ 	}
 	
 })
 
@@ -168,6 +174,7 @@ angular.module('mainCtrl', ['dataService'])
 .controller('adminController', function($scope, $location, $modal, AuthHandler, Product, Request, Cart, Order){
 
 	var vm = this;
+
 
 	Order.managerOrders().success(function(data){
 		vm.managersOrders = data;

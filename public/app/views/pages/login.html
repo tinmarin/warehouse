@@ -1,25 +1,23 @@
-<div class="login-container">
+<div class="login-page">
+<div class="login-container" ng-if="!login.loggedIn">
 
-	<div class="login-form" ng-if="!login.loggedIn">
+	<div class="login-form">
 		<h3>Log In</h3>	
 		<form ng-submit="login.doLogin()" id="loginForm" class="form-signin">
-			<div class="alert alert-danger" ng-if="login.error">
+			<div class="alert alert-danger" ng-show="login.error">
 				{{login.error}}
 			</div>
 			<div class="form-group">
-
-				<div class="input-group">
- 					<span class="input-group-addon glyphicon glyphicon-user" id="username-add"></span>
-  					<input type="text" class="form-control" placeholder="Username" aria-describedby="username-add" ng-model="login.loginData.username">
-				</div>
+			  
+			    <input type="text" class="form-control" placeholder="Username" ng-model="login.loginData.username" required>
+				<span class="login-icon glyphicon glyphicon-user"></span>
 			</div>
-
 			<div class="form-group">
-				<div class="input-group">
- 					<span class="input-group-addon glyphicon glyphicon-lock" id="password-add"></span>
-  					<input type="password" class="form-control" placeholder="Password" aria-describedby="password-add" ng-model="login.loginData.password">
-				</div>
+			  
+			    <input type="password" class="form-control" placeholder="Password" ng-model="login.loginData.password" required>
+				<div class="login-icon glyphicon glyphicon-lock"></div>
 			</div>
+			<br>
 			<div class="form-group">
 			<button type="submit" class="btn btn-block btn-primary">
 				<span>Login</span>
@@ -28,13 +26,10 @@
 			</div>
 
 		</form>
-		<div class="logo">
-			<h3>WareHouse</h3>
-		</div>
-	</div>
-	<div class="page-header" ng-if="login.loggedIn">
-		<h3>You're already logged in!<h3>
-	</div>
-	
+	</div>	
+</div>
+<div class="page-header" ng-if="login.loggedIn">
+	<h3>You're already logged in!<h3>
 </div>
 
+</div>

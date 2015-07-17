@@ -93,8 +93,13 @@
 				   	<h4>{{item.user.name}}</h4>
 				</div>
 				<div class="list-group-item-text" ng-repeat="prod in item.products">
-				    <p>{{prod.name}}</p>
+					
+					<img src="assets/imgs/products/{{prod.sku}}.jpg" class="img-circle product-img img-sm">
+					<div class="product-name-wrapper">
+					<small style="vertical-align:center;">{{prod.name}}</small>
+				    </div>
 				</div>
+				
 				<div>
 					<button class="btn btn-primary btn-xs">+ add to cart</button>
 				</div>

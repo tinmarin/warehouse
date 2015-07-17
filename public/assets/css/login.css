@@ -1,13 +1,25 @@
-.login-form {
+.login-page{
 
-	width: 470px;
+	position: absolute;
+    top:0;
+    bottom:0;
+    right:0;
+    left:0;
+	background-color: #1682C0;
+
+}
+
+.login-container {
+
+	background-color: white;
+	max-width: 400px;
 	margin-left: auto;
 	margin-right: auto;
-
-	background-color: #2C333D;
-	
-	box-shadow: 0px 0px 6px #2C333D;
-	padding-bottom: 30px;
+	margin-top: 200px;
+	border-radius: 8px;
+	box-shadow: 0px 0px 4px #2C333D;
+	min-height: 380px;
+	min-width: 420px;
 }
 
 .login-form h3 {
@@ -15,52 +27,37 @@
 	width: 50%;
 	margin-left: auto;
 	margin-right: auto;
-	color: white;
 	padding-top: 50px;
 	padding-right: 8px;
 	text-align: center;}
 
 
-
 .form-group {
 
 	margin-bottom: 25px;
+	position: relative;
 
 }
 
 
 .login-form form {
-	padding: 40px 40px 0px 40px;
+	padding: 40px 40px 40px 40px;
+
 }
 
 .logo h3 {
 
-	font-variant: small-caps;
-	color: white;
 	padding-top: 20px;
 
 }
-
-.input-group {
-	background-color: white;
+.login-form input {
+	text-indent: 25px;
 }
 
-#loginForm .input-group input {
-	background-color: white !important;
-	border: 1px solid white !important;
-	box-shadow: none !important;
+.login-icon{
+	position: absolute;
+	padding-left: 12px;
+	color: #0069A5;
+	padding-top: 11px;
 }
 
-#loginForm .input-group input:focus {
-	border-top: 1px solid #66afe9 !important;
-	border-bottom: 1px solid #66afe9 !important;
-	border-right: 1px solid #66afe9 !important;
-	border-left: 1px solid #66afe9 !important;
-
-	box-shadow: none !important;
-}
-
-#loginForm .input-group span {
-	border-right: 1px dashed #ccc;
-	color:#2C333D;
-}
