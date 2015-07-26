@@ -8,6 +8,10 @@ angular.module('mainCtrl', ['dataService'])
 
 	vm.loggedIn = AuthHandler.isLoggedIn();
 
+	if(vm.loggedIn){
+		$('.login-page').addClass('disapear');
+	}
+
 	//check to see if a user is logged in on every request
 	$rootScope.$on('$routeChangeStart', function(){
 
@@ -55,22 +59,6 @@ angular.module('mainCtrl', ['dataService'])
 
 		$location.path('/');
 	};
-
-	var elems = document.getElementsByTagName( 'a' );
-
- 
-
-	for ( var i = 0; i < elems.length; i++ ) {
-
- 		elems[ i ].addEventListener( 'click', function(e){
-
-			e.preventDefault();
-
-			console.log("am element # "+ i );
-
-		}	, 'false' );
-
- 	}
 	
 })
 

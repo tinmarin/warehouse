@@ -161,7 +161,8 @@ hr.thin-line {
 .well {
 
 	border: 1px solid #32A5E7;
-	background-color: #DBECF5;
+	background-color: #D4F0FF;
+	border-radius: 8px;
 
 }
 

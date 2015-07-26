@@ -106,7 +106,7 @@ function createPDF(order, body, callback){
 
 			doc.text(hdsupply[j].sku, defaultLeftMargin, doc.y, { lineBreak: false})
 					.text(hdsupply[j].quantity, secondColumn, doc.y, {lineBreak:false})
-					.text(hdsupply[j].name, thirdColumn, doc.y);
+					.text(hdsupply[j].name, thirdColumn, doc.y).moveDown();
 
 		}
 	}

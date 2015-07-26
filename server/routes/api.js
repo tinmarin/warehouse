@@ -140,7 +140,7 @@ module.exports = function(app, express) {
 					from : "Second Plaza",
 					to 	 : "tinmarin60@gmail.com",
 					subject: "Second Plaza Order",
-					text : "Find order attached! Thank you!"
+					text : "Please find order attached."
 				});
 				
 				
