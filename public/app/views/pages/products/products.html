@@ -1,15 +1,10 @@
 <div class="page-header">
 	<h3 class="col-sm-8" style="margin-top:0px;">Products</h3>
 	
-	<div class="col-sm-4 search-wrapper pull-right right-side">     
-			<input type="text" class="form-control btn-sm search-field" placeholder="Search for keyword or sku..." ng-model="product.searchFilter">
-			<span class="glyphicon glyphicon-search btn-lg search-icon" style="position: absolute;"></span>
-	</div>
-	
 	<div class="clearer"></div>
 </div>
 
-<div class="col-sm-6" ng-if="isAdmin">
+<div class="col-sm-6 left-side" ng-if="isAdmin">
 <form name="productForm" class="form-horizontal" ng-submit="product.createProduct()" novalidate>
 	
 	<div class="form-group">
@@ -72,8 +67,16 @@
 	</div>
 
 </form>
+
+
 </div>
 
+<div class="clearer"></div>
+<br>
+<div class="col-sm-4 search-wrapper left-side" style="margin-bottom: 10px;">     
+			<input type="text" class="form-control btn-sm search-field" placeholder="Search for keyword or sku..." ng-model="product.searchFilter">
+			<span class="glyphicon glyphicon-search btn-lg search-icon" style="position: absolute;"></span>
+</div>
 <table class="table table-hover" ng-show="product.products">
 	<thead>
 		<tr>
@@ -92,7 +95,7 @@
 	<tbody>
 		<tr ng-repeat="item in product.products | filter:product.searchFilter">
 			<td>{{ $index+1 }}</td>
-			<td><img src="assets/imgs/products/{{item.sku}}.jpg" class="cart-product-img img-thumbnail"></td>
+			<td><img src="assets/imgs/products/{{item.sku}}.jpg" class="cart-product-img img-thumbnail img-responsive"></td>
 			<td>{{ item.name }}</td>
 			<td>{{ item.keywords }}</td>
 			<td>{{ item.sku }}</td>

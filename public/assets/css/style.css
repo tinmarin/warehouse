@@ -108,6 +108,7 @@ hr.thin-line {
 	width: 90px;
 	height: 90px;
 	float: left;
+	min-width: 90px;
 }
 
 .quantity-handler{
