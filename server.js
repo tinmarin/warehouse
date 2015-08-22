@@ -9,6 +9,9 @@ var morgan     = require('morgan');
 var mongoose   = require('mongoose');
 var config 	   = require('./config');
 var path 	   = require('path');
+var favicon    = require('serve-favicon');
+
+app.use(favicon(__dirname + '/public/assets/imgs/favicon.ico'));
 
 // APP CONFIGURATION ==================
 // ====================================

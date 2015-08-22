@@ -161,10 +161,17 @@ hr.thin-line {
 
 .well {
 
+	/*position: absolute;*/
 	border: 1px solid #32A5E7;
-	background-color: #D4F0FF;
+	/*background-color: #D4F0FF;*/
+	background: linear-gradient(180deg, rgba(50,165,231,0.9), rgba(50,165,231,0.7));
 	border-radius: 8px;
+	
 
+}
+
+.letusknow{
+	width: 100%;
 }
 
 .cart-link {
