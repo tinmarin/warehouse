@@ -5,9 +5,9 @@
     bottom:0;
     right:0;
     left:0;
-	background-color: #1682C0;
+	/*background-color: #1682C0;*/
 	/*background: url(/assets/imgs/background.png) top center #fafbfc;*/
-
+	background: linear-gradient(35deg, rgba(22,130,192,0.9), rgba(22,130,192,0.5));
 }
 
 .disapear {
